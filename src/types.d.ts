@@ -21,22 +21,26 @@ export type DeleteProject = Pick<Project, 'is_deleted'>
 
 export type CreateProject = Omit<Project, 'is_deleted' | 'status'>
 
-export interface Member {
+export interface MemberInterface {
   name: string
   email: string
   role: number
   is_deleted: boolean
 }
 
-export type UpdateMember = Partial<Omit<Member, 'is_deleted'>>
+export type CreateMember = Omit<Project, 'is_deleted'>
 
-export type DeleteMember = Pick<Member, 'is_deleted'>
+export type UpdateMember = Partial<Omit<MemberInterface, 'is_deleted'>>
+
+export type DeleteMember = Pick<MemberInterface, 'is_deleted'>
 
 export interface Role {
   name: string
   description: string
   is_deleted: boolean
 }
+
+export type CreateRole = Omit<Role, 'is_deleted'>
 
 export type UpdateRole = Partial<Omit<Role, 'is_deleted'>>
 
