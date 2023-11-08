@@ -8,7 +8,7 @@ export const validateRole = [
     .withMessage('Role name is missing')
     .isLength({ min: 4, max: 50 })
     .withMessage('Role name length out of bounds. Min 4, Max 50')
-    .isAlpha()
+    .isAlpha('es-ES', { ignore: ' ' })
     .withMessage('Role name can not be a number'),
 
   (req: Request, res: Response, next: NextFunction) => {

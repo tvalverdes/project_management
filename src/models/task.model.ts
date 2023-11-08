@@ -1,10 +1,8 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../config/db_connection'
-import { Project } from './project.model'
-import { Task } from './task.model'
 
-export const Member = sequelize.define('member', {
-  member_id: {
+export const Task = sequelize.define('task', {
+  task_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -14,26 +12,34 @@ export const Member = sequelize.define('member', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  email: {
+  description: {
     type: DataTypes.TEXT,
+  },
+  start_date: {
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
-  password: {
-    type: DataTypes.TEXT,
+  ending_date: {
+    type: DataTypes.DATEONLY,
     allowNull: false,
-    defaultValue: '123456',
   },
-  role: {
+  status: {
+    type: DataTypes.ENUM,
+    values: ['PENDING', 'IN_PROGRESS', 'COMPLETED'],
+    allowNull: false,
+    defaultValue: 'PENDING',
+  },
+  created_by: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: -1,
   },
-  area_id: {
+  updated_by: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  is_deleted: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
   },
 })
-
-Member.hasMany(Project, { foreignKey: 'created_by' })
-Member.belongsToMany(Task, { through: 'member_task' })
-Project.belongsToMany(Member, { through: 'project_member' })

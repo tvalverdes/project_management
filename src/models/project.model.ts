@@ -1,4 +1,4 @@
-import { DataTypes, DatabaseError } from 'sequelize'
+import { DataTypes } from 'sequelize'
 import { sequelize } from '../config/db_connection'
 
 export const Project = sequelize.define('project', {
@@ -7,14 +7,13 @@ export const Project = sequelize.define('project', {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-    unique: true,
   },
   name: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
   },
   start_date: {
     type: DataTypes.DATEONLY,
@@ -47,10 +46,10 @@ export const Project = sequelize.define('project', {
 
 export const createTables = async () => {
   try {
-    //await sequelize.drop({})
+    //await sequelize.drop({ cascade: true })
     await sequelize.sync()
     console.log('Tables created successfully.')
-  } catch (error: DatabaseError | unknown) {
+  } catch (error: unknown) {
     throw new Error('Unable to create the tables: ' + error)
   }
 }

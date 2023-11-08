@@ -1,19 +1,20 @@
-import { MemberInterface, CreateMember } from '../types';
+/* import { RequestHandler } from 'express'
+import { CreateMember } from '../types'
 
-export class Member implements MemberInterface {
-  name: string
-  email: string
-  role: number
-  is_deleted: boolean
 
-  constructor(name: string, email: string, role: number, is_deleted: boolean) {
-    this.name = name
-    this.email = email
-    this.role = role
-    this.is_deleted = is_deleted
+export const addMember: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const data = req.body as CreateMember
+    console.log(data)
+    const [role, created] = await rolModel.findOrCreate({
+      where: data,
+    })
+    if (!created) {
+      return res.status(400).send({ error: 'Role already exists' })
+    }
+    return res.status(201).send(role)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send({ Error: 'Something went wrong: ' + error })
   }
-
-	createMember(newMember: CreateMember) {
-
-	}
-}
+} */

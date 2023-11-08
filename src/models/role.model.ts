@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../config/db_connection'
-import { Permission } from './permission.model'
 import { Member } from './member.model'
 
 export const rolModel = sequelize.define('role', {
@@ -9,22 +8,28 @@ export const rolModel = sequelize.define('role', {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-    unique: true,
   },
   name: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
     unique: true,
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
   },
-  is_deleted: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
+  permission: {
+    type: DataTypes.ARRAY(DataTypes.TEXT),
+    defaultValue: [''],
   },
 })
 
 rolModel.hasMany(Member, { foreignKey: 'role_id' })
-rolModel.belongsToMany(Permission, { through: 'role_permission' })
+
+export const createOnDeleteRole = async () => {
+  await rolModel.findOrCreate({ where: { role_id: -1, name: 'No Role' } })
+}
+
+rolModel.addHook('afterDestroy', (instance) => {
+  const roleId = instance.getDataValue('id')
+  Member.update({ role_id: -1 }, { where: { role_id: roleId } })
+})

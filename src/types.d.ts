@@ -4,6 +4,20 @@ enum statusType {
   COMPLETED = 'COMPLETED',
 }
 
+enum modelType {
+  PROJECT = 'PROJECT',
+  TASK = 'TASK',
+  ROLE = 'ROLE',
+  AREA = 'AREA',
+}
+
+enum permissionType {
+  CREATE = 'CREATE',
+  READ = 'READ',
+  WRITE = 'WRITE',
+  DELETE = 'DELETE',
+}
+
 export interface Project {
   name: string
   description: string
@@ -34,24 +48,38 @@ export type UpdateMember = Partial<Omit<MemberInterface, 'is_deleted'>>
 
 export type DeleteMember = Pick<MemberInterface, 'is_deleted'>
 
-export interface Role {
+export type Role = {
   name: string
   description: string
-  is_deleted: boolean
+  permission: string[]
 }
 
-export type CreateRole = Omit<Role, 'is_deleted'>
-
-export type UpdateRole = Partial<Omit<Role, 'is_deleted'>>
-
-export type DeleteRole = Pick<Role, 'is_deleted'>
-
-export interface Permission {
-  name: string
-  description: string
-  is_deleted: boolean
+export type UpdateRole = Partial<Role> & {
+  id: number
 }
 
-export type UpdatePermission = Partial<Omit<Permission, 'is_deleted'>>
+export type DeleteRole = {
+  id: number
+}
+
+export type UpdatePermission = {
+  id: number
+  permission: string[]
+}
 
 export type DeletePermission = Pick<Permission, 'is_deleted'>
+
+export interface Area {
+  id: number | null
+  name: string
+  description?: string
+  parent_id?: number
+  phone?: string
+  email?: string
+  is_deleted: boolean
+}
+
+export type CreateArea = Omit<Area, 'is_deleted' | 'id'>
+
+export type UpdateArea = Partial<Omit<Area, 'is_deleted'>>
+export type DeleteArea = Pick<Area, 'id'>
