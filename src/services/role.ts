@@ -50,12 +50,14 @@ export const deleteRole: RequestHandler = async (
 ) => {
   try {
     const data = req.body as DeleteRole
-    await rolModel.destroy({
+    const isDestroyed = await rolModel.destroy({
       where: {
         role_id: data.id,
       },
     })
-
+    if (!isDestroyed) {
+      return res.status(400).send({ Error: 'Role does not exists' })
+    }
     return res.status(200).send({ message: 'Data deleted successfully' })
   } catch (error) {
     console.log(error)

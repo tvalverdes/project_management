@@ -36,17 +36,21 @@ export type DeleteProject = Pick<Project, 'is_deleted'>
 export type CreateProject = Omit<Project, 'is_deleted' | 'status'>
 
 export interface MemberInterface {
+  id: number
   name: string
+  lastname: string
   email: string
-  role: number
-  is_deleted: boolean
+  password: string
+  phone?: string
+  role_id: number
+  area_id: number
 }
 
-export type CreateMember = Omit<Project, 'is_deleted'>
+export type CreateMember = Omit<MemberInterface, 'id'>
 
-export type UpdateMember = Partial<Omit<MemberInterface, 'is_deleted'>>
+export type UpdateMember = Partial<MemberInterface>
 
-export type DeleteMember = Pick<MemberInterface, 'is_deleted'>
+export type DeleteMember = Pick<MemberInterface, 'id'>
 
 export type Role = {
   name: string
@@ -70,16 +74,15 @@ export type UpdatePermission = {
 export type DeletePermission = Pick<Permission, 'is_deleted'>
 
 export interface Area {
-  id: number | null
+  id: number
   name: string
   description?: string
-  parent_id?: number
+  parent_id?: number | null
   phone?: string
   email?: string
-  is_deleted: boolean
 }
 
-export type CreateArea = Omit<Area, 'is_deleted' | 'id'>
+export type CreateArea = Omit<Area, 'id'>
 
-export type UpdateArea = Partial<Omit<Area, 'is_deleted'>>
+export type UpdateArea = Partial<Area>
 export type DeleteArea = Pick<Area, 'id'>

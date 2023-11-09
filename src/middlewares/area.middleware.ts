@@ -1,17 +1,7 @@
-import { NextFunction, Request, Response } from 'express'
-import { body, validationResult } from 'express-validator'
 
-const handleValidationErrors = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() })
-  }
-  return next()
-}
+import { body } from 'express-validator'
+import { handleValidationErrors } from '../utils/errorHandler'
+
 export const validateArea = [
   body('name')
     .exists()
@@ -26,14 +16,5 @@ export const validateArea = [
     .optional()
     .isNumeric()
     .withMessage('Phone must have only numbers'),
-  handleValidationErrors,
-]
-
-export const validateAreaId = [
-  body('id')
-    .exists()
-    .withMessage('Area id is missing')
-    .isNumeric()
-    .withMessage('Area id must be a number'),
   handleValidationErrors,
 ]
