@@ -4,20 +4,6 @@ enum statusType {
   COMPLETED = 'COMPLETED',
 }
 
-enum modelType {
-  PROJECT = 'PROJECT',
-  TASK = 'TASK',
-  ROLE = 'ROLE',
-  AREA = 'AREA',
-}
-
-enum permissionType {
-  CREATE = 'CREATE',
-  READ = 'READ',
-  WRITE = 'WRITE',
-  DELETE = 'DELETE',
-}
-
 export interface Project {
   name: string
   description: string
